@@ -16,6 +16,8 @@ export const uploadPos = async (file: File): Promise<UploadPosResponse> => {
     },
   });
 
+  console.log(response);
+
   return response.data;
 };
 

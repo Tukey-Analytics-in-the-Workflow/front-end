@@ -13,10 +13,7 @@ export interface HTTPValidationError {
 
 // POS API Types
 export interface UploadPosResponse {
-  rows: number;
-  columns: string[];
-  sample: Record<string, any>[];
-  [key: string]: unknown;
+  urls: string[];
 }
 
 // Dashboard Types
@@ -30,7 +27,7 @@ export interface Dashboard {
 }
 
 export interface DashboardEmbedToken {
-  token: string;
+  token?: string;
   embed_url?: string;
   expires_at?: string;
   [key: string]: unknown;

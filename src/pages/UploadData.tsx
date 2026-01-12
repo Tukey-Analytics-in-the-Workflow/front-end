@@ -34,7 +34,7 @@ export default function UploadData() {
     onSuccess: (data) => {
       toast({
         title: 'Upload successful',
-        description: `File uploaded successfully. ${data.rows} rows and ${data.columns.length} columns processed.`,
+        description: `File uploaded successfully.`,
       });
       setUploadSuccess(true);
       setTimeout(() => setUploadSuccess(false), 3000);
@@ -69,8 +69,8 @@ export default function UploadData() {
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   };
 
-  const getFileType = (fileName: string): 'csv' | 'json' => {
-    return fileName.toLowerCase().endsWith('.json') ? 'json' : 'csv';
+  const getFileType = (fileName: string): string => {
+    return fileName.toLowerCase().endsWith('.csv') ? 'csv' : fileName.toLowerCase().split('.').slice(-1)[0];
   };
 
   const handleFileUpload = useCallback((file: File) => {
@@ -88,7 +88,7 @@ export default function UploadData() {
     if (fileType !== 'csv' && fileType !== 'json') {
       toast({
         title: 'Invalid file type',
-        description: 'Please upload CSV or JSON files only.',
+        description: 'Please upload CSV files only.',
         variant: 'destructive',
       });
       return;
@@ -126,7 +126,7 @@ export default function UploadData() {
         setFiles((prev) =>
           prev.map((f) =>
             f.id === fileId
-              ? { ...f, status: 'completed', rows: data.rows } as UploadedFile
+              ? { ...f, status: 'completed', urls: data.urls } as UploadedFile
               : f
           )
         );

@@ -66,10 +66,10 @@ export function TableauDashboard({
       } else if (data.embed_url) {
         // Fallback to embed_url if token is not provided
         // Add embed parameter if not present
-        const embedUrl = data.embed_url.includes('embed=') 
-          ? data.embed_url 
-          : `${data.embed_url}${data.embed_url.includes('?') ? '&' : '?'}embed=y`;
-        setEmbedUrl(embedUrl);
+        // const embedUrl = data.embed_url.includes('embed=')
+        //   ? data.embed_url
+        //   : `${data.embed_url}${data.embed_url.includes('?') ? '&' : '?'}embed=y`;
+        setEmbedUrl(data.embed_url);
       } else {
         toast({
           title: 'Error',

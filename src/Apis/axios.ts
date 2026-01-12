@@ -1,12 +1,12 @@
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // API Base URL - can be configured via environment variable
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 seconds
+  timeout: 300000, // 300 seconds
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,10 +16,10 @@ const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // Get token from localStorage or context
-    const token = localStorage.getItem('tukey_auth_token');
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // const token = localStorage.getItem('tukey_auth_token');
+    // if (token && config.headers) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
     return config;
   },
   (error: AxiosError) => {
@@ -33,6 +33,7 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
+    console.error('Error response:', error);
     // Handle common errors
     if (error.response) {
       switch (error.response.status) {
@@ -58,11 +59,11 @@ apiClient.interceptors.response.use(
           console.error('An error occurred:', error.message);
       }
     } else if (error.request) {
-      console.error('Network Error: Please check your internet connection');
+      // console.error('Network Error: Please check your internet connection');
     } else {
       console.error('Error:', error.message);
     }
-    return Promise.reject(error);
+    // return Promise.reject(error);
   }
 );
 
